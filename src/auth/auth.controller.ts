@@ -11,7 +11,6 @@ export class AuthController {
 
   @Post('register')
   register(@Body() user: NewUserDTO): Promise<UserDetails | null> {
-    debugger;
     return this.authService.register(user);
   }
 
