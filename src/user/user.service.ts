@@ -1,13 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
 import { UserDetails } from './user-details.interface';
 
 import { UserDocument } from './user.schema';
-
 @Injectable()
-export class UserService {
+export class UserService{
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
   ) {}
@@ -31,7 +30,9 @@ export class UserService {
     if (!user) return null;
     return this._getUserDetails(user);
   }
-
+  async findAll(): Promise<UserDocument[]> {
+    return this.userModel.find().exec();
+  }
   async create(
     name: string,
     email: string,
@@ -48,4 +49,6 @@ export class UserService {
     });
     return newUser.save();
   }
+
+
 }

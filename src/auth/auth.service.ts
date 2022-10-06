@@ -19,7 +19,7 @@ export class AuthService {
     return bcrypt.hash(password, 12);
   }
 
-  async register(user: Readonly<NewUserDTO>): Promise<UserDetails | any> {
+async register(user: Readonly<NewUserDTO>): Promise<UserDetails | any> {
     const { name, email, password,phone,userType } = user;
 
     const existingUser = await this.userService.findByEmail(email);
